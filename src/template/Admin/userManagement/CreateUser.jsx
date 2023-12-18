@@ -1,9 +1,8 @@
-import React from "react";
+import React, { useState } from "react";
 import { createUserFields } from "../../../utils/formFields";
 import FormAction from "../../Auth/FormAction";
 import { callCreateUser } from "../../../redux/reducers/user/createUser";
 import { notification } from "antd";
-import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import Input from "../../Auth/Input";
 import { callGetlistUserByPagination } from "../../../redux/reducers/user/getUserByPagination";
@@ -23,30 +22,18 @@ const openNotificationSuccess = () => {
   });
 };
 export default function CreateUser({ active }) {
-  let navigate = useNavigate();
   let dispatch = useDispatch();
+  const [formData, setFormData] = useState({});
+  const handleChange = (e) => {
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value,
+    });
+  };
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const username = createUserFields.username;
-      const email = createUserFields.email;
-      const pass_word = createUserFields.pass_word;
-      const phone = createUserFields.phone;
-      const birth_day = createUserFields.birth_day;
-      const gender = createUserFields.gender;
-      const role = createUserFields.role;
-
-      const result = await dispatch(
-        callCreateUser({
-          email,
-          pass_word,
-          username,
-          phone,
-          birth_day,
-          gender,
-          role,
-        })
-      );
+      const result = await dispatch(callCreateUser(formData));
       if (result) {
         dispatch(callGetlistUserByPagination(active, 11, ""));
       }
@@ -101,11 +88,16 @@ export default function CreateUser({ active }) {
               </button>
             </div>
             {/* Modal body */}
-            <form className="p-4 md:p-5">
+            <form
+              className="p-4 md:p-5"
+              onSubmit={handleSubmit}
+              name="basic"
+              autoComplete="on"
+            >
               {fields.map((field) => (
                 <Input
                   key={field.id}
-                  value={createUserFields[field.id]}
+                  value={formData[field.id] || ""}
                   labelText={field.labelText}
                   labelFor={field.labelFor}
                   id={field.id}
@@ -113,10 +105,11 @@ export default function CreateUser({ active }) {
                   type={field.type}
                   isRequired={field.isRequired}
                   placeholder={field.placeholder}
+                  onChange={handleChange}
                 />
               ))}
+              <FormAction handleSubmit={handleSubmit} text="Create User" />
             </form>
-            <FormAction handleSubmit={handleSubmit} text="Create User" />
           </div>
         </div>
       </div>

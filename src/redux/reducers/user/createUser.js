@@ -13,6 +13,7 @@ const createUser = createSlice({
 export const { } = createUser.actions;
 
 export const callCreateUser = (data) => async () => {
+    console.log(data);
     try {
         await http.post(`/createUser`, data);
         history.push("/admin/userManagement");
