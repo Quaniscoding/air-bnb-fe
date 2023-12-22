@@ -12,6 +12,7 @@ export default function UserManagement() {
   const [selectedUser, setSelectedUser] = useState(null);
   const [selectedUserAvatar, setSelectedUserAvatar] = useState(null);
   const [selectedDeleteUser, setSelectedDeleteUser] = useState(null);
+  const [selectedCreateUser, setSelectedCreateUser] = useState(true);
   const handleEditUserClick = (user) => {
     setSelectedUser(user);
   };
@@ -21,16 +22,28 @@ export default function UserManagement() {
   const handleDeleteUser = (user) => {
     setSelectedDeleteUser(user);
   };
-  const handleModalClose = () => {
+  const handleCreateUser = (user) => {
+    setSelectedCreateUser(user);
+  };
+
+  const handleModalClose = useCallback(() => {
     setSelectedUser(null);
     setSelectedUserAvatar(null);
     setSelectedDeleteUser(null);
-  };
+    setSelectedCreateUser(null);
+  }, []);
+
   return (
     <div className="pt-14 sm:ml-64 dark:bg-gray-700 h-[1000px]">
       <div className="relative overflow-x-auto shadow-md dark:bg-gray-700">
         <div className="flex items-center justify-between flex-column md:flex-row flex-wrap space-y-4 md:space-y-0 py-4 bg-white dark:bg-gray-900 p-4">
-          <CreateUser active={activePage} />
+          {selectedCreateUser && (
+            <CreateUser
+              active={activePage}
+              closeModal={handleModalClose}
+              onCreateUserClick={handleCreateUser}
+            />
+          )}
           <SearchUser />
         </div>
         <TableUser

@@ -1,12 +1,26 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { USER_LOGIN, DATA_USER } from "../../utils/constant";
 import { NavLink, useNavigate } from "react-router-dom";
 import { getLocal } from "../../utils/config";
+import { useDispatch, useSelector } from "react-redux";
+import { callGetUserById } from "./../../redux/reducers/user/getUserById";
 
 export default function Header() {
   const dataUser = getLocal(DATA_USER);
   const [reset, setReset] = useState(0);
   const navigate = useNavigate();
+  let dispatch = useDispatch();
+
+  const userId = useSelector((state) => state.getUserById.user);
+  let timeout = null;
+  if (timeout != null) {
+    clearTimeout(timeout);
+  }
+  useEffect(() => {
+    setTimeout(() => {
+      dispatch(callGetUserById(dataUser.id));
+    }, 1000);
+  }, [dispatch]);
   return (
     <div>
       <header>
@@ -24,67 +38,134 @@ export default function Header() {
             </a>
             <div className="flex items-center lg:order-2">
               <div>
-                <img
-                  id="avatarButton"
-                  type="button"
-                  data-dropdown-toggle="userDropdown"
-                  data-dropdown-placement="bottom-start"
-                  className="w-10 h-10 rounded-full cursor-pointer"
-                  src={dataUser.avatar?.data}
-                  alt="User dropdown"
-                />
-                {/* Dropdown menu */}
-                <div
-                  id="userDropdown"
-                  className="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700 dark:divide-gray-600"
-                >
-                  <div className="px-4 py-3 text-sm text-gray-900 dark:text-white">
-                    <div>{dataUser.username}</div>
-                    <div className="font-medium truncate">{dataUser.email}</div>
-                  </div>
-                  <ul
-                    className="py-2 text-sm text-gray-700 dark:text-gray-200"
-                    aria-labelledby="avatarButton"
-                  >
-                    <li>
-                      <a
-                        href="#"
-                        className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
-                      >
-                        Dashboard
-                      </a>
-                    </li>
-                    <li>
-                      <a
-                        href="#"
-                        className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
-                      >
-                        Settings
-                      </a>
-                    </li>
-                    <li>
-                      <a
-                        href="#"
-                        className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
-                      >
-                        Earnings
-                      </a>
-                    </li>
-                  </ul>
-                  <div className="py-1">
-                    <a
-                      onClick={() => {
-                        setReset(reset + 1);
-                        localStorage.removeItem(USER_LOGIN);
-                        navigate("/signin");
-                      }}
-                      href="#"
-                      className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
+                {dataUser ? (
+                  <>
+                    <img
+                      id="avatarButton"
+                      type="button"
+                      data-dropdown-toggle="userDropdown"
+                      data-dropdown-placement="bottom-start"
+                      className="w-10 h-10 rounded-full cursor-pointer"
+                      src={userId.avatar}
+                      alt="User dropdown"
+                    />
+                    <div
+                      id="userDropdown"
+                      className="z-20 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700 dark:divide-gray-600"
                     >
-                      Sign out
-                    </a>
-                  </div>
-                </div>
+                      <div className="px-4 py-3 text-sm text-gray-900 dark:text-white">
+                        <div>{dataUser.username}</div>
+                        <div className="font-medium truncate">
+                          {dataUser.email}
+                        </div>
+                      </div>
+                      <ul
+                        className="py-2 text-sm text-gray-700 dark:text-gray-200"
+                        aria-labelledby="avatarButton"
+                      >
+                        <li>
+                          <a
+                            href="#"
+                            className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
+                          >
+                            Dashboard
+                          </a>
+                        </li>
+                        <li>
+                          <a
+                            href="#"
+                            className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
+                          >
+                            Settings
+                          </a>
+                        </li>
+                        <li>
+                          <a
+                            href="#"
+                            className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
+                          >
+                            Earnings
+                          </a>
+                        </li>
+                      </ul>
+                      <div className="py-1">
+                        <a
+                          onClick={() => {
+                            setReset(reset + 1);
+                            localStorage.removeItem(USER_LOGIN);
+                            navigate("/signin");
+                          }}
+                          href="#"
+                          className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
+                        >
+                          Sign out
+                        </a>
+                      </div>
+                    </div>
+                  </>
+                ) : (
+                  <>
+                    <img
+                      id="avatarButton"
+                      type="button"
+                      data-dropdown-toggle="userDropdown"
+                      data-dropdown-placement="bottom-start"
+                      className="w-10 h-10 rounded-full cursor-pointer"
+                      src="https://icon-library.com/images/avatar-icon-images/avatar-icon-images-4.jpg"
+                      alt="User dropdown"
+                    />
+                    {/* Dropdown menu */}
+                    <div
+                      id="userDropdown"
+                      className="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700 dark:divide-gray-600"
+                    >
+                      <div className="px-4 py-3 text-sm text-gray-900 dark:text-white">
+                        <div>User name</div>
+                        <div className="font-medium truncate">Email</div>
+                      </div>
+                      <ul
+                        className="py-2 text-sm text-gray-700 dark:text-gray-200"
+                        aria-labelledby="avatarButton"
+                      >
+                        <li>
+                          <a
+                            href="#"
+                            className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
+                          >
+                            Dashboard
+                          </a>
+                        </li>
+                        <li>
+                          <a
+                            href="#"
+                            className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
+                          >
+                            Settings
+                          </a>
+                        </li>
+                        <li>
+                          <a
+                            href="#"
+                            className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
+                          >
+                            Earnings
+                          </a>
+                        </li>
+                      </ul>
+                      <div className="py-1">
+                        <a
+                          onClick={() => {
+                            navigate("/signin");
+                          }}
+                          href="#"
+                          className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
+                        >
+                          Sign in
+                        </a>
+                      </div>
+                    </div>
+                  </>
+                )}
               </div>
 
               <button

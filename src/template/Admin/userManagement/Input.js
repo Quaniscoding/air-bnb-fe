@@ -1,6 +1,6 @@
 
-export default function Input({
-    handleChange,
+export default function InputCreateUser({
+    onChange,
     value,
     labelText,
     labelFor,
@@ -19,7 +19,7 @@ export default function Input({
                 {labelText}
             </label>
             <input
-                onChange={handleChange}
+                onChange={onChange}
                 value={value}
                 id={id}
                 name={name}
@@ -31,4 +31,3 @@ export default function Input({
         </div>
     )
 }
-

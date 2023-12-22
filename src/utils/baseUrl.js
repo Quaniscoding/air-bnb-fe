@@ -13,7 +13,7 @@ http.interceptors.request.use((config) => {
         headers: {
             ...config.headers,
             Token: token,
-            Authorization: `${getStringLocal(USER_LOGIN)}`
+            Authorization: token
         }
     }
 }, err => { console.log(err) })

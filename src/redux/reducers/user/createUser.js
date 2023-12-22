@@ -13,13 +13,13 @@ const createUser = createSlice({
 export const { } = createUser.actions;
 
 export const callCreateUser = (data) => async () => {
-    console.log(data);
     try {
         await http.post(`/createUser`, data);
         history.push("/admin/userManagement");
         return { isCreate: true };
     } catch (err) {
-        return { isCreate: false };
+        return new Promise((resolve, reject) => resolve({ isError: true }));
+
     }
 };
 

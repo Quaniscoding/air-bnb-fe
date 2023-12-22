@@ -96,43 +96,44 @@ const createUserFields = [
     },
     {
         labelText: "Password",
-        labelFor: "password",
+        labelFor: "pass_word",
         id: "pass_word",
-        name: "password",
+        name: "pass_word",
         type: "password",
-        autoComplete: "current-password",
+        autoComplete: "pass_word",
         isRequired: true,
         placeholder: "Password"
     },
     {
         labelText: "Phone number",
-        labelFor: "Phone number",
+        labelFor: "phone",
         id: "phone",
-        name: "Phone number",
+        name: "phone",
         type: "number",
-        autoComplete: "Phone number",
+        autoComplete: "phone",
         isRequired: true,
         placeholder: "Phone number"
     },
     {
         labelText: "Birth day",
-        labelFor: "Birth day",
+        labelFor: "birth_day",
         id: "birth_day",
-        name: "Birth day",
+        name: "birth_day",
         type: "text",
-        autoComplete: "Birth day",
+        autoComplete: "birth_day",
         isRequired: true,
         placeholder: "Birth day"
     },
     {
         labelText: "Role",
-        labelFor: "Role",
+        labelFor: "role",
         id: "role",
-        name: "Role",
+        name: "role",
         type: "text",
-        autoComplete: "Role",
+        autoComplete: "role",
         isRequired: true,
         placeholder: "Role"
     }
-]
+];
+
 export { signinFields, signupFields, createUserFields }

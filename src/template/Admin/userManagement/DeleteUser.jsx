@@ -44,7 +44,7 @@ export default function DeleteUser({ user, active, closeModal }) {
         {/* Modal content */}
         <div className="relative p-4 text-center bg-white rounded-lg shadow dark:bg-gray-900 sm:p-5 border-2 border-rose-500">
           <svg
-            class="mx-auto mb-4 text-gray-400 w-12 h-12 dark:text-gray-200"
+            className="mx-auto mb-4 text-gray-400 w-12 h-12 dark:text-gray-200"
             aria-hidden="true"
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
@@ -52,9 +52,9 @@ export default function DeleteUser({ user, active, closeModal }) {
           >
             <path
               stroke="currentColor"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              stroke-width="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth="2"
               d="M10 11V6m0 8h.01M19 10a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"
             />
           </svg>

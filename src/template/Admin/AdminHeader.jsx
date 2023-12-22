@@ -1,13 +1,27 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { DATA_USER, USER_LOGIN } from "../../utils/constant";
 import { getLocal } from "../../utils/config";
+import { useDispatch, useSelector } from "react-redux";
+import { callGetUserById } from "../../redux/reducers/user/getUserById";
 
 export default function AdminHeader() {
   const [reset, setReset] = useState(0);
   const [active, setActive] = useState(1);
   const dataUser = getLocal(DATA_USER);
   const navigate = useNavigate();
+  let dispatch = useDispatch();
+
+  const userId = useSelector((state) => state.getUserById.user);
+  let timeout = null;
+  if (timeout != null) {
+    clearTimeout(timeout);
+  }
+  useEffect(() => {
+    setTimeout(() => {
+      dispatch(callGetUserById(dataUser.id));
+    }, 1000);
+  }, [dispatch]);
   return (
     <div>
       <nav className="fixed top-0 z-50 w-full bg-white border-b border-gray-200 dark:bg-gray-800 dark:border-gray-700">
@@ -59,7 +73,7 @@ export default function AdminHeader() {
                     <span className="sr-only">Open user menu</span>
                     <img
                       className="w-8 h-8 rounded-full"
-                      src={dataUser.avatar?.data}
+                      src={userId.avatar}
                       alt="user photo"
                     />
                   </button>

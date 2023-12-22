@@ -4,8 +4,8 @@ import FormAction from "../../Auth/FormAction";
 import { callCreateUser } from "../../../redux/reducers/user/createUser";
 import { notification } from "antd";
 import { useDispatch } from "react-redux";
-import Input from "../../Auth/Input";
 import { callGetlistUserByPagination } from "../../../redux/reducers/user/getUserByPagination";
+import InputCreateUser from "./Input";
 const fields = createUserFields;
 let fieldsState = {};
 fields.forEach((field) => (fieldsState[field.id] = ""));
@@ -21,7 +21,7 @@ const openNotificationSuccess = () => {
     description: "Create Success!",
   });
 };
-export default function CreateUser({ active }) {
+export default function CreateUser({ active, closeModal, onCreateUserClick }) {
   let dispatch = useDispatch();
   const [formData, setFormData] = useState({});
   const handleChange = (e) => {
@@ -37,7 +37,9 @@ export default function CreateUser({ active }) {
       if (result) {
         dispatch(callGetlistUserByPagination(active, 11, ""));
       }
+      await onCreateUserClick(formData);
       result.isError ? openNotificationFail() : openNotificationSuccess();
+      closeModal();
     } catch (error) {}
   };
   return (
@@ -89,13 +91,11 @@ export default function CreateUser({ active }) {
             </div>
             {/* Modal body */}
             <form
-              className="p-4 md:p-5"
+              className="p-4 md:p-5 relative bg-white rounded-lg shadow dark:bg-gray-700"
               onSubmit={handleSubmit}
-              name="basic"
-              autoComplete="on"
             >
               {fields.map((field) => (
-                <Input
+                <InputCreateUser
                   key={field.id}
                   value={formData[field.id] || ""}
                   labelText={field.labelText}
