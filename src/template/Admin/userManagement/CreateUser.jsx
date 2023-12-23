@@ -96,7 +96,7 @@ export default function CreateUser({ active, closeModal }) {
                     name="username"
                     id="username"
                     className="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                    placeholder=""
+                    placeholder="username123"
                     required
                   />
                 </div>
@@ -131,6 +131,7 @@ export default function CreateUser({ active, closeModal }) {
                     id="pass_word"
                     className="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                     required
+                    placeholder="password123"
                   />
                 </div>
                 <div className="col-span-6 sm:col-span-3">
@@ -146,7 +147,7 @@ export default function CreateUser({ active, closeModal }) {
                     name="phone"
                     id="phone"
                     className="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                    placeholder="e.g. +(12)3456 789"
+                    placeholder="e.g. +(84)3456 789"
                     required
                   />
                 </div>
@@ -159,12 +160,12 @@ export default function CreateUser({ active, closeModal }) {
                   </label>
                   <input
                     onChange={handleChange}
-                    type="text"
-                    name="birth_day"
                     id="birth_day"
+                    datepicker="true"
+                    datepicker-autohide="true"
+                    type="text"
                     className="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                    placeholder="Birth day"
-                    required
+                    placeholder="Select date"
                   />
                 </div>
                 <div className="col-span-6 sm:col-span-3">
@@ -174,15 +175,20 @@ export default function CreateUser({ active, closeModal }) {
                   >
                     Gender
                   </label>
-                  <input
+                  <select
                     onChange={handleChange}
-                    type="text"
-                    name="gender"
                     id="gender"
-                    className="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                    placeholder="Gender"
                     required
-                  />
+                    className="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                  >
+                    <option selected>Gender</option>
+                    <option defaultValue={"male"} value="male">
+                      Male
+                    </option>
+                    <option defaultValue={"female"} value="female">
+                      Female
+                    </option>
+                  </select>
                 </div>
                 <div className="col-span-6 sm:col-span-3">
                   <label
@@ -191,15 +197,16 @@ export default function CreateUser({ active, closeModal }) {
                   >
                     Role
                   </label>
-                  <input
+                  <select
                     onChange={handleChange}
-                    type="text"
-                    name="role"
                     id="role"
-                    className="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                    placeholder={"Role"}
                     required
-                  />
+                    className="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                  >
+                    <option selected>Role</option>
+                    <option value="user">User</option>
+                    <option value="user">Admin</option>
+                  </select>
                 </div>
               </div>
             </div>
