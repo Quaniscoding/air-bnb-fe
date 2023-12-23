@@ -8,6 +8,7 @@ import updateUser from './reducers/user/updateUser'
 import callPostAvatarUser from './reducers/user/postAvatarUser'
 import deleteUser from './reducers/user/deleteUser'
 import createUser from './reducers/user/createUser'
+import getSearchUser from './reducers/user/searchUser'
 export const store = configureStore({
     reducer: {
         userSignIn,
@@ -18,6 +19,7 @@ export const store = configureStore({
         deleteUser,
         callPostAvatarUser,
         getUserById,
-        createUser
+        createUser,
+        getSearchUser
     },
 })

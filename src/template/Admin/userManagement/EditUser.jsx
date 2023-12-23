@@ -40,7 +40,7 @@ export default function EditUser({ user, closeModal, active }) {
       const result = await dispatch(callUpdateUser(user._id, formData));
       result.isUpdate ? openNotificationSuccess() : openNotificationFail();
       if (result) {
-        dispatch(callGetlistUserByPagination(active, 11, ""));
+        dispatch(callGetlistUserByPagination(active, 10, ""));
       }
       closeModal();
     } catch (error) {

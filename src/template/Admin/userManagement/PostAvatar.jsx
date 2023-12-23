@@ -33,7 +33,7 @@ export default function PostAvatar({ user, closeModal, active }) {
       const result = await dispatch(callPostAvatarUser(user._id, formData));
       result.isPost ? openNotificationSuccess() : openNotificationFail();
       if (result) {
-        dispatch(callGetlistUserByPagination(active, 11, ""));
+        dispatch(callGetlistUserByPagination(active, 10, ""));
       }
       closeModal();
     } catch (error) {

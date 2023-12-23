@@ -24,6 +24,5 @@ export const callGetlistUserByPagination = (pageIndex, pageSize, keyWord) => asy
         const apiGetlistUserByPagination = await http.get(`/getUser/getUserByPagination?pageIndex=${pageIndex}&pageSize=${pageSize}&keyWord=${keyWord}`);
         dispatch(setListUserByPagination(apiGetlistUserByPagination.data.content));
     } catch (err) {
-        console.error(err);
     }
 }
